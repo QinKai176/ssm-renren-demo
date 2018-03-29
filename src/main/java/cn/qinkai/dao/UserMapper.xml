@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.qinkai.dao.UserMapper" >
+	<resultMap id="BaseResultMap" type="cn.qinkai.pojo.User" >
+   	 	<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="username" property="username" jdbcType="VARCHAR" />
+   	 	<result column="password" property="password" jdbcType="VARCHAR" />
+  	</resultMap>
+	<!-- <select id="selectUserByName" parameterType="string" resultType="cn.itheima.pojo.User">
+		select * from user where username=#{username}
+	</select> -->
+	<sql id="Base_Column_List" >
+    	id, username, password
+  	</sql>
+  	<select id="selectUserByName" resultMap="BaseResultMap" parameterType="string" >
+    	select 
+    	<include refid="Base_Column_List" />
+    	from user
+    	where username = #{username}
+  	</select>
+  	<insert id="insertUser" parameterType="cn.qinkai.pojo.User" useGeneratedKeys="true" keyProperty="id">     
+   	 	insert into user (username, password)
+    	values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+ 	 </insert>
+ 	 
+ 	 <select id="selectUserList" resultMap="BaseResultMap" parameterType="string">     
+   	 	select 
+    	<include refid="Base_Column_List" />
+    	from user
+ 	 </select>
+ 	 
+ 	  <delete id="deleteUser" parameterType="int">
+        delete from user where id=#{id}
+ 	 </delete>
+ 	 
+ 	 <update id="updateUser" parameterType="cn.qinkai.pojo.User">     
+   	 	update user set password=#{password} where username=#{username}
+    	
+ 	 </update>
+ 	 
+    <delete id="deleteUsers" parameterType="java.util.List">
+         delete from user where id=
+         <foreach item="id" collection="ids" open="(" close=")" separator=",">
+             #{id}
+         </foreach>
+     </delete>
+     
+     <select id="selectUserByText" resultMap="BaseResultMap" parameterType="string">     
+   	 	select 
+    	<include refid="Base_Column_List" />
+    	from user
+    	where username LIKE CONCAT(CONCAT('%', #{text}), '%');
+ 	 </select>
+</mapper>
