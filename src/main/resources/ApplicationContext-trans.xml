@@ -16,7 +16,7 @@ http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		<!-- 数据源 -->
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+
 	<!-- 通知 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
@@ -29,11 +29,11 @@ http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
-	
+
 	<!-- 切面 -->
 	<aop:config>
 		<aop:advisor advice-ref="txAdvice"
 			pointcut="execution(* cn.qinkai.service.*.*(..))" />
 	</aop:config>
-	
+
 </beans>

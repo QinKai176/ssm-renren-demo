@@ -20,7 +20,7 @@
 		<property name="maxActive" value="10" />
 		<property name="maxIdle" value="5" />
 	</bean>
-	
+
 	<!-- mapper配置 -->
 	<!-- 让spring管理sqlsessionfactory 使用mybatis和spring整合包中的 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -29,10 +29,10 @@
 		<!-- 加载mybatis的全局配置文件 -->
 		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
 	</bean>
-	
+
 	<!-- 配置Mapper扫描器 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="cn.qinkai.dao"/>
+		<property name="basePackage" value="cn.qinkai.dao" />
 	</bean>
 
 </beans>
